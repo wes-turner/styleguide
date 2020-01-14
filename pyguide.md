@@ -7,6 +7,161 @@ See README.md for details.
 # Google Python Style Guide
 
 
+<details>
+  <summary>Table of Contents</summary>
+
+-   [1 Background](#s1-background)
+-   [2 Python Language Rules](#s2-python-language-rules)
+    *   [2.1 Lint](#s2.1-lint)
+        +   [2.1.1 Definition](#s2.1.1-definition)
+        +   [2.1.2 Pros](#s2.1.2-pros)
+        +   [2.1.3 Cons](#s2.1.3-cons)
+        +   [2.1.4 Decision](#s2.1.4-decision)
+    *   [2.2 Imports](#s2.2-imports)
+        +   [2.2.1 Definition](#s2.2.1-definition)
+        +   [2.2.2 Pros](#s2.2.2-pros)
+        +   [2.2.3 Cons](#s2.2.3-cons)
+        +   [2.2.4 Decision](#s2.2.4-decision)
+    *   [2.3 Packages](#s2.3-packages)
+        +   [2.3.1 Pros](#s2.3.1-pros)
+        +   [2.3.2 Cons](#s2.3.2-cons)
+        +   [2.3.3 Decision](#s2.3.3-decision)
+    *   [2.4 Exceptions](#s2.4-exceptions)
+        +   [2.4.1 Definition](#s2.4.1-definition)
+        +   [2.4.2 Pros](#s2.4.2-pros)
+        +   [2.4.3 Cons](#s2.4.3-cons)
+        +   [2.4.4 Decision](#s2.4.4-decision)
+    *   [2.5 Global variables](#s2.5-global-variables)
+        +   [2.5.1 Definition](#s2.5.1-definition)
+        +   [2.5.2 Pros](#s2.5.2-pros)
+        +   [2.5.3 Cons](#s2.5.3-cons)
+        +   [2.5.4 Decision](#s2.5.4-decision)
+    *   [2.6 Nested/Local/Inner Classes and Functions](#s2.6-nested)
+        +   [2.6.1 Definition](#s2.6.1-definition)
+        +   [2.6.2 Pros](#s2.6.2-pros)
+        +   [2.6.3 Cons](#s2.6.3-cons)
+        +   [2.6.4 Decision](#s2.6.4-decision)
+    *   [2.7 Comprehensions & Generator Expressions](#s2.7-comprehensions)
+        +   [2.7.1 Definition](#s2.7.1-definition)
+        +   [2.7.2 Pros](#s2.7.2-pros)
+        +   [2.7.3 Cons](#s2.7.3-cons)
+        +   [2.7.4 Decision](#s2.7.4-decision)
+    *   [2.8 Default Iterators and Operators](#s2.8-default-iterators-and-operators)
+        +   [2.8.1 Definition](#s2.8.1-definition)
+        +   [2.8.2 Pros](#s2.8.2-pros)
+        +   [2.8.3 Cons](#s2.8.3-cons)
+        +   [2.8.4 Decision](#s2.8.4-decision)
+    *   [2.9 Generators](#s2.9-generators)
+        +   [2.9.1 Definition](#s2.9.1-definition)
+        +   [2.9.2 Pros](#s2.9.2-pros)
+        +   [2.9.3 Cons](#s2.9.3-cons)
+        +   [2.9.4 Decision](#s2.9.4-decision)
+    *   [2.10 Lambda Functions](#s2.10-lambda-functions)
+        +   [2.10.1 Definition](#s2.10.1-definition)
+        +   [2.10.2 Pros](#s2.10.2-pros)
+        +   [2.10.3 Cons](#s2.10.3-cons)
+        +   [2.10.4 Decision](#s2.10.4-decision)
+    *   [2.11 Conditional Expressions](#s2.11-conditional-expressions)
+        +   [2.11.1 Definition](#s2.11.1-definition)
+        +   [2.11.2 Pros](#s2.11.2-pros)
+        +   [2.11.3 Cons](#s2.11.3-cons)
+        +   [2.11.4 Decision](#s2.11.4-decision)
+    *   [2.12 Default Argument Values](#s2.12-default-argument-values)
+        +   [2.12.1 Definition](#s2.12.1-definition)
+        +   [2.12.2 Pros](#s2.12.2-pros)
+        +   [2.12.3 Cons](#s2.12.3-cons)
+        +   [2.12.4 Decision](#s2.12.4-decision)
+    *   [2.13 Properties](#s2.13-properties)
+        +   [2.13.1 Definition](#s2.13.1-definition)
+        +   [2.13.2 Pros](#s2.13.2-pros)
+        +   [2.13.3 Cons](#s2.13.3-cons)
+        +   [2.13.4 Decision](#s2.13.4-decision)
+    *   [2.14 True/False Evaluations](#s2.14-truefalse-evaluations)
+        +   [2.14.1 Definition](#s2.14.1-definition)
+        +   [2.14.2 Pros](#s2.14.2-pros)
+        +   [2.14.3 Cons](#s2.14.3-cons)
+        +   [2.14.4 Decision](#s2.14.4-decision)
+    *   [2.15 Deprecated Language Features](#s2.15-deprecated-language-features)
+        +   [2.15.1 Definition](#s2.15.1-definition)
+        +   [2.15.2 Decision](#s2.15.2-decision)
+    *   [2.16 Lexical Scoping](#s2.16-lexical-scoping)
+        +   [2.16.1 Definition](#s2.16.1-definition)
+        +   [2.16.2 Pros](#s2.16.2-pros)
+        +   [2.16.3 Cons](#s2.16.3-cons)
+        +   [2.16.4 Decision](#s2.16.4-decision)
+    *   [2.17 Function and Method Decorators](#s2.17-function-and-method-decorators)
+        +   [2.17.1 Definition](#s2.17.1-definition)
+        +   [2.17.2 Pros](#s2.17.2-pros)
+        +   [2.17.3 Cons](#s2.17.3-cons)
+        +   [2.17.4 Decision](#s2.17.4-decision)
+    *   [2.18 Threading](#s2.18-threading)
+    *   [2.19 Power Features](#s2.19-power-features)
+        +   [2.19.1 Definition](#s2.19.1-definition)
+        +   [2.19.2 Pros](#s2.19.2-pros)
+        +   [2.19.3 Cons](#s2.19.3-cons)
+        +   [2.19.4 Decision](#s2.19.4-decision)
+    *   [2.20 Modern Python: Python 3 and from \_\_future\_\_ imports](#s2.20-modern-python)
+        +   [2.20.1 Definition](#s2.20.1-definition)
+        +   [2.20.2 Pros](#s2.20.2-pros)
+        +   [2.20.3 Cons](#s2.20.3-cons)
+        +   [2.20.4 Decision](#s2.20.4-decision)
+    *   [2.21 Type Annotated Code](#s2.21-type-annotated-code)
+        +   [2.21.1 Definition](#s2.21.1-definition)
+        +   [2.21.2 Pros](#s2.21.2-pros)
+        +   [2.21.3 Cons](#s2.21.3-cons)
+        +   [2.21.4 Decision](#s2.21.4-decision)
+-   [3 Python Style Rules](#s3-python-style-rules)
+    *   [3.1 Semicolons](#s3.1-semicolons)
+    *   [3.2 Line length](#s3.2-line-length)
+    *   [3.3 Parentheses](#s3.3-parentheses)
+    *   [3.4 Indentation](#s3.4-indentation)
+    *   [3.4.1 Trailing commas in sequences of items?](#s3.4.1-trailing-commas)
+    *   [3.5 Blank Lines](#s3.5-blank-lines)
+    *   [3.6 Whitespace](#s3.6-whitespace)
+    *   [3.7 Shebang Line](#s3.7-shebang-line)
+    *   [3.8 Comments and Docstrings](#s3.8-comments-and-docstrings)
+        +   [3.8.1 Docstrings](#s3.8.1-comments-in-docstrings)
+        +   [3.8.2 Modules](#s3.8.2-comments-in-modules)
+        +   [3.8.3 Functions and Methods](#s3.8.3-functions-and-methods)
+        +   [3.8.4 Classes](#s3.8.4-comments-in-classes)
+        +   [3.8.5 Block and Inline Comments](#s3.8.5-block-and-inline-comments)
+        +   [3.8.6 Punctuation, Spelling, and Grammar](#s3.8.6-punctuation-spelling-and-grammar)
+    *   [3.9 Classes](#s3.9-classes)
+    *   [3.10 Strings](#s3.10-strings)
+    *   [3.11 Files and Sockets](#s3.11-files-and-sockets)
+    *   [3.12 TODO Comments](#s3.12-todo-comments)
+    *   [3.13 Imports formatting](#s3.13-imports-formatting)
+    *   [3.14 Statements](#s3.14-statements)
+    *   [3.15 Accessors](#s3.15-accessors)
+    *   [3.16 Naming](#s3.16-naming)
+        +   [3.16.1 Names to Avoid](#s3.16.1-names-to-avoid)
+        +   [3.16.2 Naming Conventions](#s3.16.2-naming-conventions)
+        +   [3.16.3 File Naming](#s3.16.3-file-naming)
+        +   [3.16.4 Guidelines derived from Guido's Recommendations](#s3.16.4-guidelines-derived-from-guidos-recommendations)
+    *   [3.17 Main](#s3.17-main)
+    *   [3.18 Function length](#s3.18-function-length)
+    *   [3.19 Type Annotations](#s3.19-type-annotations)
+        +   [3.19.1 General Rules](#s3.19.1-general-rules)
+        +   [3.19.2 Line Breaking](#s3.19.2-line-breaking)
+        +   [3.19.3 Forward Declarations](#s3.19.3-forward-declarations)
+        +   [3.19.4 Default Values](#s3.19.4-default-values)
+        +   [3.19.5 NoneType](#s3.19.5-nonetype)
+        +   [3.19.6 Type Aliases](#s3.19.6-type-aliases)
+        +   [3.19.7 Ignoring Types](#s3.19.7-ignoring-types)
+        +   [3.19.8 Typing Variables](#s3.19.8-typing-variables)
+        +   [3.19.9 Tuples vs Lists](#s3.19.9-tuples-vs-lists)
+        +   [3.19.10 TypeVars](#s3.19.10-typevars)
+        +   [3.19.11 String types](#s3.19.11-string-types)
+        +   [3.19.12 Imports For Typing](#s3.19.12-imports-for-typing)
+        +   [3.19.13 Conditional Imports](#s3.19.13-conditional-imports)
+        +   [3.19.14 Circular Dependencies](#s3.19.14-circular-dependencies)
+        +   [3.19.15 Generics](#s3.19.15-generics)
+        +   [3.19.16 Build Dependencies](#s3.19.16-build-dependencies)
+-   [4 Parting Words](#4-parting-words)
+
+</details>
+
+<a id="s1-background"></a>
 <a id="1-background"></a>
 
 <a id="background"></a>
@@ -493,6 +648,7 @@ closing over a local value. Do not nest a function just to hide it from users
 of a module. Instead, prefix its name with an \_ at the module level so that it
 can still be accessed by tests.
 
+<a id="s2.7-comprehensions"></a>
 <a id="s2.7-list_comprehensions"></a>
 <a id="27-list_comprehensions"></a>
 <a id="list_comprehensions"></a>
@@ -1442,6 +1598,7 @@ the [six](https://pypi.org/project/six/),
 [past](https://pypi.org/project/past/) libraries as you see fit. They exist to
 make your code cleaner and life easier.
 
+<a name="s2.21-type-annotated-code"></a>
 <a name="s2.21-typed-code"></a>
 <a name="221-type-annotated-code"></a>
 <a name="typed-code"></a>
@@ -1714,6 +1871,7 @@ No:    # Stuff on first line forbidden
        }
 ```
 
+<a id="s3.4.1-trailing-comma"></a>
 <a id="s3.4.1-trailing_comma"></a>
 <a id="341-trailing_comma"></a>
 <a id="trailing_comma"></a>
@@ -1882,6 +2040,7 @@ This line is used by the kernel to find the Python interpreter, but is ignored
 by Python when importing modules. It is only necessary on a file that will be
 executed directly.
 
+<a id="s3.8-comments-and-docstrings"></a>
 <a id="s3.8-comments"></a>
 <a id="38-comments-and-docstrings"></a>
 
@@ -2072,6 +2231,7 @@ class SampleClass(object):
         """Performs operation blah."""
 ```
 
+<a id="s3.8.5-block-and-inline-comments"></a>
 <a id="comments-in-block-and-inline"></a>
 <a id="s3.8.5-comments-in-block-and-inline"></a>
 <a id="385-block-and-inline-comments"></a>
@@ -2495,6 +2655,7 @@ No:
   except ValueError: baz(foo)
 ```
 
+<a id="s3.15-accessors"></a>
 <a id="s3.15-access-control"></a>
 <a id="315-access-control"></a>
 <a id="access-control"></a>
@@ -2731,6 +2892,7 @@ up the function into smaller and more manageable pieces.
 <a id="type-annotations"></a>
 ### 3.19 Type Annotations 
 
+<a id="s3.19.1-general-rules"></a>
 <a id="s3.19.1-general"></a>
 <a id="3191-general-rules"></a>
 
@@ -2886,6 +3048,7 @@ def func(a:int=0) -> int:
   ...
 ```
 
+<a id="s3.19.5-nonetype"></a>
 <a id="s3.19.5-none-type"></a>
 <a id="3195-nonetype"></a>
 
@@ -2917,6 +3080,7 @@ def implicit_optional(a: Text = None) -> Text:
   ...
 ```
 
+<a id="s3.19.6-type-aliases"></a>
 <a id="s3.19.6-aliases"></a>
 <a id="3196-type-aliases"></a>
 <a id="typing-aliases"></a>
@@ -2939,6 +3103,7 @@ ComplexMap = Mapping[Text, List[Tuple[int, int]]]
 Other examples are complex nested types and multiple return variables from a
 function (as a tuple).
 
+<a id="s3.19.7-ignoring-types"></a>
 <a id="s3.19.7-ignore"></a>
 <a id="3197-ignoring-types"></a>
 
@@ -2954,6 +3119,7 @@ You can disable type checking on a line with the special comment
 # pytype: disable=attribute-error
 ```
 
+<a id="s3.19.8-typing-variables"></a>
 <a id="s3.19.8-comments"></a>
 <a id="3198-typing-internal-variables"></a>
 
@@ -2979,6 +3145,7 @@ a = SomeUndecoratedFunction()  # type: Foo
 a: Foo = SomeUndecoratedFunction()
 ```
 
+<a id="s3.19.9-tuples-vs-lists"></a>
 <a id="s3.19.9-tuples"></a>
 <a id="3199-tuples-vs-lists"></a>
 
@@ -2995,6 +3162,7 @@ b = (1, 2, 3)  # type: Tuple[int, ...]
 c = (1, "2", 3.5)  # type: Tuple[int, Text, float]
 ```
 
+<a id="s3.19.10-typevars"></a>
 <a id="s3.19.10-type-var"></a>
 <a id="31910-typevar"></a>
 <a id="typing-type-var"></a>
@@ -3036,6 +3204,7 @@ def check_length(x: AnyStr) -> AnyStr:
   raise ValueError()
 ```
 
+<a id="s3.19.11-string-types"></a>
 <a id="s3.19.11-strings"></a>
 <a id="31911-string-types"></a>
 
@@ -3100,6 +3269,7 @@ return type is the same as the argument type in the code above, use
 
 Writing it like this will simplify the process of porting the code to Python 3.
 
+<a id="s3.19.12-imports-for-typing"></a>
 <a id="s3.19.12-imports"></a>
 <a id="31912-imports-for-typing"></a>
 
@@ -3154,6 +3324,7 @@ if typing.TYPE_CHECKING:
 def f(x: "sketch.Sketch"): ...
 ```
 
+<a id="s3.19.14-circular-dependencies"></a>
 <a id="s3.19.14-circular-deps"></a>
 <a id="31914-circular-dependencies"></a>
 
