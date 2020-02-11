@@ -1104,7 +1104,7 @@ Template Method DP).
 ```python
 Yes: import math
 
-     class Square(object):
+     class Square:
          """A square with two properties: a writable area and a read-only perimeter.
 
          To use:
@@ -1383,7 +1383,7 @@ decorator syntax allows for user-defined decorators as well. Specifically, for
 some function `my_decorator`, this:
 
 ```python
-class C(object):
+class C:
     @my_decorator
     def method(self):
         # method body ...
@@ -1391,9 +1391,8 @@ class C(object):
 
 is equivalent to:
 
-
 ```python
-class C(object):
+class C:
     def method(self):
         # method body ...
     method = my_decorator(method)
@@ -2211,7 +2210,7 @@ If your class has public attributes, they should be documented here in an
 [function's `Args`](#doc-function-args) section.
 
 ```python
-class SampleClass(object):
+class SampleClass:
     """Summary of class here.
 
     Longer class information....
@@ -2296,41 +2295,32 @@ punctuation, spelling, and grammar help with that goal.
 <a id="classes"></a>
 ### 3.9 Classes 
 
-If a class inherits from no other base classes, explicitly inherit from
-`object`. This also applies to nested classes.
+Classes need not explicitly inherit from `object` (unless for compatibility with
+Python 2).
 
 ```python
-Yes: class SampleClass(object):
+Modern:
+     class SampleClass:
          pass
 
 
-     class OuterClass(object):
+     class OuterClass:
 
-         class InnerClass(object):
+         class InnerClass:
              pass
-
-
-     class ChildClass(ParentClass):
-         """Explicitly inherits from another class already."""
-
 ```
 
 ```python
-No: class SampleClass:
+Ancient:
+    class SampleClass(object):
         pass
 
 
-    class OuterClass:
+    class OuterClass(object):
 
-        class InnerClass:
+        class InnerClass(object):
             pass
 ```
-
-Inheriting from `object` is needed to make properties work properly in Python 2
-and can protect your code from potential incompatibility with Python 3. It also
-defines special methods that implement the default semantics of objects
-including `__new__`, `__init__`, `__delattr__`, `__getattribute__`,
-`__setattr__`, `__hash__`, `__repr__`, and `__str__`.
 
 <a id="s3.10-strings"></a>
 <a id="310-strings"></a>
@@ -3020,7 +3010,7 @@ for example, if you need the class inside the class declaration, or if you use a
 class that is defined below -- use a string for the class name.
 
 ```python
-class MyClass(object):
+class MyClass:
 
   def __init__(self,
                stack: List["MyClass"]) -> None:
