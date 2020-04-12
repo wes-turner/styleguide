@@ -120,7 +120,7 @@ See README.md for details.
     *   [3.6 Whitespace](#s3.6-whitespace)
     *   [3.7 Shebang Line](#s3.7-shebang-line)
     *   [3.8 Comments and Docstrings](#s3.8-comments-and-docstrings)
-        +   [3.8.1 Docstrings](#s3.8.1-comments-in-docstrings)
+        +   [3.8.1 Docstrings](#s3.8.1-comments-in-doc-strings)
         +   [3.8.2 Modules](#s3.8.2-comments-in-modules)
         +   [3.8.3 Functions and Methods](#s3.8.3-functions-and-methods)
         +   [3.8.4 Classes](#s3.8.4-comments-in-classes)
@@ -1104,7 +1104,7 @@ Template Method DP).
 ```python
 Yes: import math
 
-     class Square(object):
+     class Square:
          """A square with two properties: a writable area and a read-only perimeter.
 
          To use:
@@ -1383,7 +1383,7 @@ decorator syntax allows for user-defined decorators as well. Specifically, for
 some function `my_decorator`, this:
 
 ```python
-class C(object):
+class C:
     @my_decorator
     def method(self):
         # method body ...
@@ -1391,9 +1391,8 @@ class C(object):
 
 is equivalent to:
 
-
 ```python
-class C(object):
+class C:
     def method(self):
         # method body ...
     method = my_decorator(method)
@@ -2211,7 +2210,7 @@ If your class has public attributes, they should be documented here in an
 [function's `Args`](#doc-function-args) section.
 
 ```python
-class SampleClass(object):
+class SampleClass:
     """Summary of class here.
 
     Longer class information....
@@ -2296,41 +2295,32 @@ punctuation, spelling, and grammar help with that goal.
 <a id="classes"></a>
 ### 3.9 Classes 
 
-If a class inherits from no other base classes, explicitly inherit from
-`object`. This also applies to nested classes.
+Classes need not explicitly inherit from `object` (unless for compatibility with
+Python 2).
 
 ```python
-Yes: class SampleClass(object):
+Modern:
+     class SampleClass:
          pass
 
 
-     class OuterClass(object):
+     class OuterClass:
 
-         class InnerClass(object):
+         class InnerClass:
              pass
-
-
-     class ChildClass(ParentClass):
-         """Explicitly inherits from another class already."""
-
 ```
 
 ```python
-No: class SampleClass:
+Ancient:
+    class SampleClass(object):
         pass
 
 
-    class OuterClass:
+    class OuterClass(object):
 
-        class InnerClass:
+        class InnerClass(object):
             pass
 ```
-
-Inheriting from `object` is needed to make properties work properly in Python 2
-and can protect your code from potential incompatibility with Python 3. It also
-defines special methods that implement the default semantics of objects
-including `__new__`, `__init__`, `__delattr__`, `__getattribute__`,
-`__setattr__`, `__hash__`, `__repr__`, and `__str__`.
 
 <a id="s3.10-strings"></a>
 <a id="310-strings"></a>
@@ -2700,9 +2690,19 @@ Always use a `.py` filename extension. Never use dashes.
 <a id="names-to-avoid"></a>
 #### 3.16.1 Names to Avoid 
 
--   single character names except for counters or iterators. You may use "e" as
-    an exception identifier in try/except statements.
+-   single character names, except for specifically allowed cases:
+
+    -   counters or iterators (e.g. `i`, `j`, `k`, `v`, et al)
+    -   `e` as an exception identifier in `try/except` statements.
+    -   `f` as a file handle in `with` statements
+
+    Please be mindful not to abuse single-character naming. Generally speaking,
+    descriptiveness should be proportional to the name's scope of visibility.
+    For example, `i` might be a fine name for 5-line code block but within
+    multiple nested scopes, it is likely too vague.
+
 -   dashes (`-`) in any package/module name
+
 -   `__double_leading_and_trailing_underscore__` names (reserved by Python)
 
 <a id="s3.16.2-naming-conventions"></a>
@@ -2850,6 +2850,22 @@ functionality. The main functionality should be in a `main()` function.
 In Python, `pydoc` as well as unit tests require modules to be importable. Your
 code should always check `if __name__ == '__main__'` before executing your main
 program so that the main program is not executed when the module is imported.
+
+When using [absl](https://github.com/abseil/abseil-py), use `app.run`:
+
+```python
+from absl import app
+...
+
+def main(argv):
+    # process non-flag arguments
+    ...
+
+if __name__ == '__main__':
+    app.run(main)
+```
+
+Otherwise, use:
 
 ```python
 def main():
@@ -3020,7 +3036,7 @@ for example, if you need the class inside the class declaration, or if you use a
 class that is defined below -- use a string for the class name.
 
 ```python
-class MyClass(object):
+class MyClass:
 
   def __init__(self,
                stack: List["MyClass"]) -> None:
